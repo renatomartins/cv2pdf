@@ -58,8 +58,13 @@ var htmlFilename = basename + '.html';
 var pdfFilename = opts.o || basename + '.pdf';
 
 // read css file
-var css = fs.readFileSync(cssFilename, 'utf8');
-css = '<style>' + css + '</style>';
+var css;
+try {
+  css = fs.readFileSync(cssFilename, 'utf8');
+  css = '<style>' + css + '</style>';
+} catch (e) {
+  css = '';
+}
 
 // read markdown and convert to html
 var markdownText = fs.readFileSync(markdownFilename, 'utf8');
