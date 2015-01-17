@@ -15,6 +15,7 @@ var opts = minimist(process.argv.slice(2), {
     s: 'save-html',
     h: 'help'
   },
+  boolean: ['s'],
   default: {
     s: false,
     c: path.join(__dirname, 'markdown.css')

@@ -21,6 +21,9 @@ $ cv2pdf cv.md
 # provide a filename to the output file
 $ cv2pdf --out=renato-martins-cv.pdf cv.md
 
+# save html file (otherwise it goes to /tmp folder)
+$ cv2pdf --save-html cv.md
+
 # custom css
 $ cv2pdf --css=style.css cv.md
 
