@@ -1,0 +1,10 @@
+{
+  "name": "cv",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "minimist": "^1.1.0",
+    "phantomjs": "^1.9.13",
+    "remarkable": "^1.6.0"
+  }
+}
