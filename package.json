@@ -1,8 +1,17 @@
 {
   "name": "cv2pdf",
+  "description": "Convert a Markdown CV to PDF",
   "version": "0.1.0",
+  "author": "Renato S. Martins <smartins.renato@gmail.com>",
   "preferGlobal": true,
   "bin": "./cv2pdf.js",
+  "keywords": ["cv", "resume", "markdown", "pdf", "convert"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/renatomartins/cv2pdf.git"
+  },
+  "bugs": "https://github.com/renatomartins/cv2pdf/issues",
+  "license": "Public Domain",
   "dependencies": {
     "minimist": "^1.1.0",
     "phantomjs": "^1.9.13",

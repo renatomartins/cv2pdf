@@ -22,7 +22,7 @@ var opts = minimist(process.argv.slice(2), {
 });
 
 function printUsage() {
-  console.log('Convert a Markdown resume to PDF')
+  console.log('Convert a Markdown CV to PDF')
   console.log(
     'Usage: cv2pdf ' +
     '[-h|--help] ' +
