@@ -1,7 +1,8 @@
 {
-  "name": "cv",
-  "version": "1.0.0",
-  "private": true,
+  "name": "cv2pdf",
+  "version": "0.1.0",
+  "preferGlobal": true,
+  "bin": "./cv2pdf.js",
   "dependencies": {
     "minimist": "^1.1.0",
     "phantomjs": "^1.9.13",
