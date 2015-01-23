@@ -1,11 +1,33 @@
 var system = require('system');
 var page = require('webpage').create();
 
-var args = system.args.slice(1);
-var htmlFilename = args[0];
-var pdfFilename = args[1];
+var html = system.args[1];
+var pdfFile = system.args[2];
 
-page.open(htmlFilename, function () {
+function replaceClassWithInlineStyle(html) {
+  var el = page.evaluate(function (html) {
+    var parentEl = document.createElement('div');
+    document.body.appendChild(parentEl);
+    parentEl.innerHTML = html;
+    var el = parentEl.children[0];
+    el.setAttribute('style', window.getComputedStyle(el).cssText);
+    document.body.removeChild(parentEl);
+    return el;
+  }, html);
+  return el.outerHTML;
+}
+
+function renderFooter(pageNum, numPages) {
+  var span =
+    '<span class="page-footer">' +
+    pageNum + ' / ' + numPages +
+    '</span>';
+  return replaceClassWithInlineStyle(span);
+}
+
+page.content = html;
+
+page.onLoadFinished = function () {
   page.paperSize = {
     format: 'A4',
     margin: {
@@ -16,12 +38,10 @@ page.open(htmlFilename, function () {
     },
     footer: {
       height: '0.5cm',
-      contents: phantom.callback(function (pageNum, numPages) {
-        return '<span style="float:right;font-family:Georgia;font-size:.8em">' + pageNum + ' / ' + numPages + '</span>';
-      })
+      contents: phantom.callback(renderFooter)
     }
   };
 
-  page.render(pdfFilename);
+  page.render(pdfFile);
   phantom.exit();
-});
+};

@@ -1,7 +1,7 @@
 {
   "name": "cv2pdf",
   "description": "Convert a Markdown CV to PDF",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "Renato S. Martins <smartins.renato@gmail.com>",
   "preferGlobal": true,
   "main": "lib",

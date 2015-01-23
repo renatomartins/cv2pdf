@@ -9,31 +9,56 @@ Requirements:
  * Node.js
 
 ```
-$ npm install -g cv2pdf
+$ npm install --global cv2pdf
 ```
 
 ## Usage
 
-```
-# simple example
+### Command line
+
+```sh
+# basic example
 $ cv2pdf cv.md
 
-# provide a filename to the output file
-$ cv2pdf --out=renato-martins-cv.pdf cv.md
+# with some options
+$ cv2pdf --out=cv-2015.pdf --save-html --css=style.css cv.md
+```
 
-# save html file (otherwise it goes to /tmp folder)
-$ cv2pdf --save-html cv.md
+Options:
+ * --out | -o: output filename
+ * --css | -c: custom css
+ * --save-html | -s: whether to save an html file
+ * --help | -h: help message
 
-# custom css
-$ cv2pdf --css=style.css cv.md
+### Programmatic
 
-# usage help
-$ cv2pdf --help
+```js
+var Cv2Pdf = require('cv2pdf');
+
+// basic example
+var cv2pdf = new Cv2Pdf('cv.md');
+cv2pdf.convert();
+
+// with some options
+var cv2pdf = new Cv2Pdf('cv.md', {
+  out: 'cv-2015.pdf',
+  css: 'style.css',
+  saveHtml: true
+});
+cv2pdf.convert();
+```
+
+## Styling
+
+Apart from all the HTML tags you can style, the PDF will also render a footer for each page with the class `page-footer`:
+
+```html
+<span class="page-footer">1 / 3</span>
 ```
 
 ## License
 
-:globe_with_meridians: Public Domain
+Public Domain
 
 
 ## Acknowledgments
