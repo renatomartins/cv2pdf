@@ -1,4 +1,4 @@
-# cv2pdf
+# cv2pdf [![Build Status](https://travis-ci.org/renatomartins/cv2pdf.svg?branch=master)](https://travis-ci.org/renatomartins/cv2pdf)
 
 Convert a Markdown CV to PDF.
 
