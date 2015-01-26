@@ -45,7 +45,11 @@ var cv2pdf = new Cv2Pdf('cv.md', {
   css: 'style.css',
   saveHtml: true
 });
-cv2pdf.convert();
+// execute code when finished, once for each task
+// ie: if `saveHtml` this will run twice
+cv2pdf.convert(function (task) {
+  console.log(task + ': Done!');
+});
 ```
 
 ## Styling

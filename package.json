@@ -1,11 +1,11 @@
 {
   "name": "cv2pdf",
   "description": "Convert a Markdown CV to PDF",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "author": "Renato S. Martins <smartins.renato@gmail.com>",
   "preferGlobal": true,
   "main": "lib",
-  "bin": "./bin/cv2pdf",
+  "bin": "./bin/cv2pdf.js",
   "keywords": [
     "cv",
     "resume",
@@ -24,5 +24,14 @@
     "minimist": "^1.1.0",
     "phantomjs": "^1.9.13",
     "remarkable": "^1.6.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.1.0",
+    "rewire": "^2.1.4",
+    "should": "^4.6.1",
+    "sinon": "^1.12.2"
+  },
+  "scripts": {
+    "test": "mocha test"
   }
 }
