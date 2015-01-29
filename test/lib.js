@@ -61,6 +61,28 @@ describe('Module', function () {
     args[1].should.be.String;
   });
 
+  it('watches a file', function (done) {
+    var cv2pdf = new Cv2Pdf(fixtureMarkdownFile, {
+      watch: true
+    });
+    var touchFile = function () {
+      var buffer = fs.readFileSync(fixtureMarkdownFile);
+      fs.writeFileSync(fixtureMarkdownFile, buffer);
+    };
+    var convertSpy = sinon.stub(cv2pdf, 'convert').yields();
+    var counter = 1;
+    cv2pdf.watch(function () {
+      if (counter === 3) {
+        cv2pdf.convert.restore();
+        return done();
+      }
+      convertSpy.callCount.should.be.equal(counter);
+      counter++;
+      setTimeout(touchFile, 10);
+    });
+    touchFile();
+  });
+
   it('overrides output filename', function () {
     var cv2pdf = new Cv2Pdf(fixtureMarkdownFile, {out: 'result.pdf'});
     cv2pdf.convert();

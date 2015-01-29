@@ -22,12 +22,16 @@ $ cv2pdf cv.md
 
 # with some options
 $ cv2pdf --out=cv-2015.pdf --save-html --css=style.css cv.md
+
+# converts everytime the file is saved
+$ cv2pdf --watch cv.md
 ```
 
 Options:
  * --out | -o: output filename
  * --css | -c: custom css
  * --save-html | -s: whether to save an html file
+ * --watch | -w: converts everytime the file is saved
  * --help | -h: help message
 
 ### Programmatic
@@ -49,6 +53,11 @@ var cv2pdf = new Cv2Pdf('cv.md', {
 // ie: if `saveHtml` this will run twice
 cv2pdf.convert(function (task) {
   console.log(task + ': Done!');
+});
+
+// watch modifications on a file
+cv2pdf.watch(function (err) {
+  console.log('Last converted: ' + Date.now());
 });
 ```
 

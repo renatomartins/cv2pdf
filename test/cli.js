@@ -4,11 +4,12 @@ var rewire = require('rewire');
 var cli = rewire('../lib/cli');
 
 
-function setupTestConstructor(file, options) {
+function setupTestConstructor(expectedFile, expectedOptions) {
   cli.__set__('Cv2Pdf', function (actualFile, actualOptions) {
     this.convert = function () {};
-    actualFile.should.be.equal(file);
-    actualOptions.should.eql(options);
+    this.watch = function () {};
+    actualFile.should.be.equal(expectedFile);
+    actualOptions.should.eql(expectedOptions);
   });
 }
 
@@ -57,6 +58,14 @@ describe('CLI', function () {
     this.defaultOptions.css = 'style.css';
     setupTestConstructor('cv.md', this.defaultOptions);
     cli.run(['--css=style.css', 'cv.md']);
+  });
+
+  it('$ cv2pdf --watch cv.md', function () {
+    setupTestConstructor('cv.md', this.defaultOptions);
+    cli.run(['--watch', 'cv.md'], function (err, stdout) {
+      should(err).be.equal(null);
+      stdout.should.startWith('Watching cv.md');
+    });
   });
 
 });

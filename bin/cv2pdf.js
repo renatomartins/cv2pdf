@@ -7,7 +7,7 @@ cli.run(argv, function (err, stdout) {
   if (err) {
     console.error(err);
     process.exit(1);
-  } else if (output) {
-    console.log(output);
+  } else if (stdout) {
+    console.log(stdout);
   }
 });
