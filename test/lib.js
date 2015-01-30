@@ -62,12 +62,13 @@ describe('Module', function () {
 
   it('watches a file', function (done) {
     var cv2pdf = new Cv2Pdf(fixtureMarkdownFile, {watch: true});
-    var touchFile = function () {
-      var buffer = fs.readFileSync(fixtureMarkdownFile);
-      fs.writeFileSync(fixtureMarkdownFile, buffer);
-    };
     var convertSpy = sinon.stub(cv2pdf, 'convert').yields();
     var counter = 1;
+    var touchFile = function () {
+      var now = new Date();
+      now.setSeconds(now.getSeconds() + counter);
+      fs.utimes(fixtureMarkdownFile, now, now);
+    };
     // changes modification date of the file several times
     cv2pdf.watch(function () {
       if (counter === 3) {
