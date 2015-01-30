@@ -20,7 +20,7 @@ describe('CLI', function () {
     this.defaultOptions = {
       css: undefined,
       out: undefined,
-      saveHtml: false
+      html: false
     };
   });
 
@@ -42,10 +42,10 @@ describe('CLI', function () {
     cli.run(['cv.md']);
   });
 
-  it('$ cv2pdf --save-html cv.md', function () {
-    this.defaultOptions.saveHtml = true;
+  it('$ cv2pdf --html cv.md', function () {
+    this.defaultOptions.html = true;
     setupTestConstructor('cv.md', this.defaultOptions);
-    cli.run(['--save-html', 'cv.md']);
+    cli.run(['--html', 'cv.md']);
   });
 
   it('$ cv2pdf --out=result.pdf cv.md', function () {

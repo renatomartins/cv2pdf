@@ -51,26 +51,24 @@ describe('Module', function () {
     testNotMarkdown('inexistent-file');
   });
 
-  it('saves html file', function () {
-    var cv2pdf = new Cv2Pdf(fixtureMarkdownFile, {
-      saveHtml: true
-    });
+  it('saves only the html', function () {
+    var cv2pdf = new Cv2Pdf(fixtureMarkdownFile, {html: true});
     cv2pdf.convert();
     var args = cv2pdf.writeHtml.args[0];
-    args[0].should.be.equal(path.resolve('example.html'));
-    args[1].should.be.String;
+    args[0].should.be.String;
+    args[1].should.be.equal(path.resolve('example.html'));
+    cv2pdf.callPhantom.callCount.should.be.equal(0);
   });
 
   it('watches a file', function (done) {
-    var cv2pdf = new Cv2Pdf(fixtureMarkdownFile, {
-      watch: true
-    });
+    var cv2pdf = new Cv2Pdf(fixtureMarkdownFile, {watch: true});
     var touchFile = function () {
       var buffer = fs.readFileSync(fixtureMarkdownFile);
       fs.writeFileSync(fixtureMarkdownFile, buffer);
     };
     var convertSpy = sinon.stub(cv2pdf, 'convert').yields();
     var counter = 1;
+    // changes modification date of the file several times
     cv2pdf.watch(function () {
       if (counter === 3) {
         cv2pdf.convert.restore();
@@ -91,22 +89,20 @@ describe('Module', function () {
   });
 
   it('uses default stylesheet', function () {
-    var cv2pdf = new Cv2Pdf(fixtureMarkdownFile, {
-      saveHtml: true
-    });
+    var cv2pdf = new Cv2Pdf(fixtureMarkdownFile, {html: true});
     cv2pdf.convert();
     var args = cv2pdf.writeHtml.args[0];
-    args[1].should.startWith('<style>' + defaultCss + '<\/style>');
+    args[0].should.startWith('<style>' + defaultCss + '<\/style>');
   });
 
   it('allows custom stylesheet', function () {
     var cv2pdf = new Cv2Pdf(fixtureMarkdownFile, {
       css: fixtureCssFile,
-      saveHtml: true
+      html: true
     });
     cv2pdf.convert();
     var args = cv2pdf.writeHtml.args[0];
-    args[1].should.startWith('<style>' + fixtureCss + '<\/style>');
+    args[0].should.startWith('<style>' + fixtureCss + '<\/style>');
   });
 
   it('calls phantomJS', function () {
@@ -129,11 +125,8 @@ describe('Module', function () {
   });
 
   it('creates cv.html', function (done) {
-    var cv2pdf = new Cv2Pdf(fixtureMarkdownFile, {
-      saveHtml: true
-    });
+    var cv2pdf = new Cv2Pdf(fixtureMarkdownFile, {html: true});
     cv2pdf.writeHtml.restore();
-    sinon.stub(cv2pdf, 'convertToPdf');
     cv2pdf.convert(function () {
       fs.existsSync('example.html').should.be.true;
       fs.unlinkSync('example.html');
